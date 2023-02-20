@@ -1,10 +1,18 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 
-export const SplashScreen = () => {
+export const SplashScreen = ({
+  name,
+  version,
+}: {
+  name: string;
+  version: string;
+}) => {
   return (
     <View>
-      <Text>Splashscreen</Text>
+      <Image source={require('../assets/logo.png')} />
+      <Text>{name}</Text>
+      <Text>{version}</Text>
     </View>
   );
 };
