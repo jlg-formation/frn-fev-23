@@ -1,4 +1,5 @@
 {
   "name": "front",
-  "displayName": "front"
+  "displayName": "front",
+  "domainUrl": "http://localhost:3000"
 }
