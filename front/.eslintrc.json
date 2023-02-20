@@ -3,5 +3,8 @@
   "extends": "@react-native-community",
   "parserOptions": {
     "requireConfigFile": false
+  },
+  "rules": {
+    "eqeqeq": "error"
   }
 }
