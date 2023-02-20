@@ -7,14 +7,16 @@ export const LoginScreen = () => {
       <Text style={styles.h1}>Connexion</Text>
       <View style={styles.form}>
         <View style={styles.label}>
-          <Text>Login</Text>
-          <TextInput />
+          <Text style={styles.labelText}>Login</Text>
+          <TextInput style={styles.input} />
         </View>
         <View style={styles.label}>
-          <Text>Mot de passe</Text>
-          <TextInput />
+          <Text style={styles.labelText}>Mot de passe</Text>
+          <TextInput style={styles.input} />
         </View>
-        <Button title="Se connecter" />
+        <View style={styles.buttonContainer}>
+          <Button title="Se connecter" />
+        </View>
       </View>
     </View>
   );
@@ -26,8 +28,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     height: '100%',
+    width: '100%',
+    padding: 10,
   },
-  h1: {},
-  form: {},
+  h1: {
+    color: 'black',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  form: {
+    width: '100%',
+    gap: 20,
+  },
   label: {},
+  labelText: {
+    color: 'black',
+    fontSize: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  buttonContainer: {
+    marginTop: 40,
+  },
 });
