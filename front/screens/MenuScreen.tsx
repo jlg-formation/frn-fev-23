@@ -1,26 +1,18 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {HomeScreen} from './menu/HomeScreen';
+import {SettingScreen} from './menu/SettingScreen';
+
+const Tab = createBottomTabNavigator();
 
 export const MenuScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.h1}>Menu Screen</Text>
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    height: '100%',
-    width: '100%',
-    padding: 10,
-  },
-  h1: {
-    color: 'black',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-});
