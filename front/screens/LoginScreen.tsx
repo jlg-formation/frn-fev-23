@@ -12,7 +12,7 @@ export const LoginScreen = () => {
         </View>
         <View style={styles.label}>
           <Text style={styles.labelText}>Mot de passe</Text>
-          <TextInput style={styles.input} />
+          <TextInput secureTextEntry={true} style={styles.input} />
         </View>
         <View style={styles.buttonContainer}>
           <Button title="Se connecter" />
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 5,
+    color: 'black',
   },
   buttonContainer: {
     marginTop: 40,
