@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({onConnected}: {onConnected: () => void}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.h1}>Connexion</Text>
@@ -15,7 +15,7 @@ export const LoginScreen = () => {
           <TextInput secureTextEntry={true} style={styles.input} />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Se connecter" />
+          <Button title="Se connecter" onPress={onConnected} />
         </View>
       </View>
     </View>
