@@ -1,12 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {SplashScreen} from './screens/SplashScreen';
 
-function App(): JSX.Element {
-  return (
-    <View>
-      <Text>Coucou photobook !</Text>
-    </View>
-  );
-}
+const App = () => {
+  return <SplashScreen />;
+};
 
 export default App;
