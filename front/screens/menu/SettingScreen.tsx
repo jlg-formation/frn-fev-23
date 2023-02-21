@@ -1,15 +1,19 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {Locale} from '../../interfaces/Locale';
+import {useAuthenticationStore} from '../../stores/authentication.store';
 import {primaryColor} from '../../theme';
 
 export function SettingScreen() {
+  const authenticationStore = useAuthenticationStore();
+
   const changeLanguage = (newLocale: Locale) => () => {
     console.log('newLocale: ', newLocale);
   };
 
   const disconnect = () => {
     console.log('disconnect');
+    authenticationStore.disconnect();
   };
   return (
     <View style={styles.container}>

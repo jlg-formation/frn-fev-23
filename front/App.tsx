@@ -4,10 +4,11 @@ import {displayName} from './app.json';
 import {version} from './package.json';
 import {LoginScreen} from './screens/LoginScreen';
 import {MenuScreen} from './screens/MenuScreen';
+import {useAuthenticationStore} from './stores/authentication.store';
 
 const App = () => {
   const [showSplashScreen, setShowSplashScreen] = useState(true);
-  const [isConnected, setIsConnected] = useState(false);
+  const authenticationStore = useAuthenticationStore();
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,12 +18,12 @@ const App = () => {
   }, []);
 
   const onConnected = useCallback(() => {
-    setIsConnected(true);
-  }, [setIsConnected]);
+    authenticationStore.connect();
+  }, [authenticationStore]);
 
   return showSplashScreen ? (
     <SplashScreen name={displayName} version={version} />
-  ) : isConnected ? (
+  ) : authenticationStore.user ? (
     <MenuScreen />
   ) : (
     <LoginScreen onConnected={onConnected} />
