@@ -10,16 +10,14 @@ import {
 import {useAuthenticationStore} from '../stores/authentication.store';
 
 export const LoginScreen = () => {
-  const [isConnecting, setIsConnecting] = useState(false);
   const [login, setLogin] = useState('jlg@jlg.com');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const {connect} = useAuthenticationStore();
+  const {connect, isConnecting} = useAuthenticationStore();
 
   const onConnected = async () => {
     try {
       setErrorMsg('');
-      setIsConnecting(true);
       await connect(login, password);
     } catch (err) {
       console.log('err: ', err);
@@ -28,8 +26,6 @@ export const LoginScreen = () => {
         return;
       }
       setErrorMsg('Erreur inconnue');
-    } finally {
-      setIsConnecting(false);
     }
   };
 
