@@ -6,6 +6,7 @@ import {LegalScreen} from './menu/LegalScreen';
 import {SettingScreen} from './menu/SettingScreen';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {primaryColor} from '../theme';
 
 const getTabBarIcons =
   (iconName: string) =>
@@ -21,7 +22,7 @@ export const MenuScreen = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={() => ({
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: primaryColor,
           tabBarInactiveTintColor: 'gray',
           headerShown: false,
         })}>
