@@ -8,14 +8,14 @@ import {useAuthenticationStore} from './stores/authentication.store';
 
 const App = () => {
   const [showSplashScreen, setShowSplashScreen] = useState(true);
-  const {user} = useAuthenticationStore();
+  const {user, checkIfConnected} = useAuthenticationStore();
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log('set to false');
+    (async () => {
+      await checkIfConnected();
       setShowSplashScreen(false);
-    }, 500);
-  }, []);
+    })();
+  }, [checkIfConnected]);
 
   return showSplashScreen ? (
     <SplashScreen name={displayName} version={version} />

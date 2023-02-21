@@ -1,6 +1,20 @@
 import {User} from './interfaces/User';
 import {domainUrl} from './app.json';
 class API {
+  async checkIfConnected() {
+    try {
+      const response = await fetch(domainUrl + '/api/auth/isConnected');
+      if (response.status !== 200) {
+        return undefined;
+      }
+      const user: User = await response.json();
+      return user;
+    } catch (err) {
+      console.log('err: ', err);
+      return undefined;
+    }
+  }
+
   async connect(login: string, password: string): Promise<User> {
     try {
       console.log('login: ', login);

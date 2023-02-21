@@ -7,6 +7,7 @@ export interface AuthenticationStore {
   isConnecting: boolean;
   connect: (login: string, password: string) => Promise<void>;
   disconnect: () => Promise<void>;
+  checkIfConnected: () => Promise<void>;
 }
 
 export const useAuthenticationStore = create<AuthenticationStore>(set => ({
@@ -37,6 +38,16 @@ export const useAuthenticationStore = create<AuthenticationStore>(set => ({
     } catch (err) {
       console.log('err: ', err);
     } finally {
+      set(() => ({user: undefined}));
+    }
+  },
+  checkIfConnected: async () => {
+    try {
+      console.log('checking if connected');
+      const user = await api.checkIfConnected();
+      set(() => ({user: user}));
+    } catch (err) {
+      console.log('err: ', err);
       set(() => ({user: undefined}));
     }
   },
