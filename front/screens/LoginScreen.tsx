@@ -11,11 +11,13 @@ import {useAuthenticationStore} from '../stores/authentication.store';
 
 export const LoginScreen = () => {
   const [isConnecting, setIsConnecting] = useState(false);
+  const [login, setLogin] = useState('jlg@jlg.com');
+  const [password, setPassword] = useState('');
   const {connect} = useAuthenticationStore();
 
   const onConnected = async () => {
     setIsConnecting(true);
-    await connect();
+    await connect(login, password);
     setIsConnecting(false);
   };
 
@@ -25,11 +27,20 @@ export const LoginScreen = () => {
       <View style={styles.form}>
         <View style={styles.label}>
           <Text style={styles.labelText}>Login</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            defaultValue={login}
+            onChangeText={setLogin}
+          />
         </View>
         <View style={styles.label}>
           <Text style={styles.labelText}>Mot de passe</Text>
-          <TextInput secureTextEntry={true} style={styles.input} />
+          <TextInput
+            secureTextEntry={true}
+            style={styles.input}
+            defaultValue={password}
+            onChangeText={setPassword}
+          />
         </View>
         <View style={styles.buttonContainer}>
           {isConnecting ? (
