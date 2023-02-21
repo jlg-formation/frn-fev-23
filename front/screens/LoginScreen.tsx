@@ -30,7 +30,9 @@ export const LoginScreen = () => {
           <TextInput
             style={styles.input}
             defaultValue={login}
-            onChangeText={setLogin}
+            onChange={event => {
+              setLogin(event.nativeEvent.text);
+            }}
           />
         </View>
         <View style={styles.label}>
