@@ -1,7 +1,6 @@
 import {create} from 'zustand';
 import {api} from '../api';
 import {User} from '../interfaces/User';
-import {sleep} from '../misc';
 
 export interface AuthenticationStore {
   user: User | undefined;

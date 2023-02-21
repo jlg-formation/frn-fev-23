@@ -19,10 +19,15 @@ export function SettingScreen() {
   };
 
   const disconnect = async () => {
-    console.log('disconnect');
-    setIsDisconnecting(true);
-    await authenticationStore.disconnect();
-    setIsDisconnecting(false);
+    try {
+      console.log('disconnect');
+      setIsDisconnecting(true);
+      await authenticationStore.disconnect();
+    } catch (err) {
+      console.log('err: ', err);
+    } finally {
+      setIsDisconnecting(false);
+    }
   };
   return (
     <View style={styles.container}>
