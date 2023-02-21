@@ -7,6 +7,7 @@ import {SettingScreen} from './menu/SettingScreen';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {primaryColor} from '../theme';
+import {useI18nStore} from '../stores/i18n.store';
 
 const getTabBarIcons =
   (iconName: string) =>
@@ -18,6 +19,7 @@ const getTabBarIcons =
 const Tab = createBottomTabNavigator();
 
 export const MenuScreen = () => {
+  const {t} = useI18nStore();
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -31,6 +33,7 @@ export const MenuScreen = () => {
           component={HomeScreen}
           options={{
             tabBarIcon: getTabBarIcons('home'),
+            tabBarLabel: t.menu.home,
           }}
         />
         <Tab.Screen
@@ -38,6 +41,7 @@ export const MenuScreen = () => {
           component={LegalScreen}
           options={{
             tabBarIcon: getTabBarIcons('information-circle'),
+            tabBarLabel: t.menu.legal,
           }}
         />
         <Tab.Screen
@@ -45,6 +49,7 @@ export const MenuScreen = () => {
           component={SettingScreen}
           options={{
             tabBarIcon: getTabBarIcons('settings'),
+            tabBarLabel: t.menu.settings,
           }}
         />
       </Tab.Navigator>

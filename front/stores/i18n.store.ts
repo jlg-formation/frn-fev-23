@@ -4,7 +4,7 @@ import enJson from '../i18n/en.json';
 import frJson from '../i18n/fr.json';
 
 export interface I18nStore {
-  t: any;
+  t: typeof enJson;
   locale: Locale;
   changeLocale(newLocale: Locale): void;
 }

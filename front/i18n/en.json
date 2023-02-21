@@ -1,3 +1,12 @@
 {
-  "signin": "Sign In"
+  "signin": "Sign In",
+  "settings": "Settings",
+  "languages": "Languages",
+  "account": "Account",
+  "disconnect": "Disconnect",
+  "menu": {
+    "home": "Home",
+    "legal": "Legal",
+    "settings": "Settings"
+  }
 }

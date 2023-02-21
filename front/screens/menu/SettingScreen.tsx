@@ -14,7 +14,7 @@ import {primaryColor} from '../../theme';
 export function SettingScreen() {
   const [isDisconnecting, setIsDisconnecting] = useState(false);
   const authenticationStore = useAuthenticationStore();
-  const {changeLocale} = useI18nStore();
+  const {changeLocale, t} = useI18nStore();
 
   const changeLanguage = (newLocale: Locale) => () => {
     console.log('newLocale: ', newLocale);
@@ -34,9 +34,9 @@ export function SettingScreen() {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.h1}>Paramètres</Text>
+      <Text style={styles.h1}>{t.settings}</Text>
       <View style={styles.section}>
-        <Text style={styles.h2}>Langues</Text>
+        <Text style={styles.h2}>{t.languages}</Text>
         <Pressable
           android_ripple={{color: 'gray'}}
           style={[styles.button, styles.primaryButton]}
@@ -55,7 +55,7 @@ export function SettingScreen() {
         </Pressable>
       </View>
       <View style={styles.section}>
-        <Text style={styles.h2}>Compte</Text>
+        <Text style={styles.h2}>{t.account}</Text>
         <Pressable
           android_ripple={{color: 'gray'}}
           style={[styles.button, styles.secondaryButton]}
@@ -64,7 +64,7 @@ export function SettingScreen() {
             <ActivityIndicator />
           ) : (
             <Text style={[styles.buttonText, styles.secondaryButtonText]}>
-              Se déconnecter
+              {t.disconnect}
             </Text>
           )}
         </Pressable>
