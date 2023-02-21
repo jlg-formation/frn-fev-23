@@ -35,14 +35,14 @@ export const MenuScreen = () => {
           name="Legal"
           component={LegalScreen}
           options={{
-            tabBarIcon: getTabBarIcons('home'),
+            tabBarIcon: getTabBarIcons('information-circle'),
           }}
         />
         <Tab.Screen
           name="Settings"
           component={SettingScreen}
           options={{
-            tabBarIcon: getTabBarIcons('home'),
+            tabBarIcon: getTabBarIcons('settings'),
           }}
         />
       </Tab.Navigator>
