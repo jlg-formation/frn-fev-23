@@ -1,7 +1,24 @@
-import React from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import {useAuthenticationStore} from '../stores/authentication.store';
 
-export const LoginScreen = ({onConnected}: {onConnected: () => void}) => {
+export const LoginScreen = () => {
+  const [isConnecting, setIsConnecting] = useState(false);
+  const {connect} = useAuthenticationStore();
+
+  const onConnected = async () => {
+    setIsConnecting(true);
+    await connect();
+    setIsConnecting(false);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.h1}>Connexion</Text>
@@ -15,7 +32,11 @@ export const LoginScreen = ({onConnected}: {onConnected: () => void}) => {
           <TextInput secureTextEntry={true} style={styles.input} />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Se connecter" onPress={onConnected} />
+          {isConnecting ? (
+            <ActivityIndicator />
+          ) : (
+            <Button title="Se connecter" onPress={onConnected} />
+          )}
         </View>
       </View>
     </View>

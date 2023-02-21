@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {SplashScreen} from './screens/SplashScreen';
+import React, {useEffect, useState} from 'react';
 import {displayName} from './app.json';
 import {version} from './package.json';
 import {LoginScreen} from './screens/LoginScreen';
 import {MenuScreen} from './screens/MenuScreen';
+import {SplashScreen} from './screens/SplashScreen';
 import {useAuthenticationStore} from './stores/authentication.store';
 
 const App = () => {
   const [showSplashScreen, setShowSplashScreen] = useState(true);
-  const authenticationStore = useAuthenticationStore();
+  const {user} = useAuthenticationStore();
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,16 +17,12 @@ const App = () => {
     }, 500);
   }, []);
 
-  const onConnected = useCallback(() => {
-    authenticationStore.connect();
-  }, [authenticationStore]);
-
   return showSplashScreen ? (
     <SplashScreen name={displayName} version={version} />
-  ) : authenticationStore.user ? (
+  ) : user ? (
     <MenuScreen />
   ) : (
-    <LoginScreen onConnected={onConnected} />
+    <LoginScreen />
   );
 };
 
