@@ -28,6 +28,20 @@ class API {
       throw new Error('Technical Error');
     }
   }
+
+  async disconnect() {
+    try {
+      const response = await fetch(domainUrl + '/api/auth/disconnect', {
+        method: 'POST',
+      });
+      if (response.status !== 200) {
+        throw new Error('Technical Error');
+      }
+    } catch (err) {
+      console.log('err: ', err);
+      throw new Error('Technical Error');
+    }
+  }
 }
 
 export const api = new API();
