@@ -8,12 +8,14 @@ import {
   View,
 } from 'react-native';
 import {useAuthenticationStore} from '../stores/authentication.store';
+import {useI18nStore} from '../stores/i18n.store';
 
 export const LoginScreen = () => {
   const [login, setLogin] = useState('jlg@jlg.com');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const {connect, isConnecting} = useAuthenticationStore();
+  const {t} = useI18nStore();
 
   const onConnected = async () => {
     try {
@@ -31,7 +33,7 @@ export const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.h1}>Connexion</Text>
+      <Text style={styles.h1}>{t.signin}</Text>
       <View style={styles.form}>
         <View style={styles.label}>
           <Text style={styles.labelText}>Login</Text>

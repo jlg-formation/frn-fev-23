@@ -8,14 +8,17 @@ import {
 } from 'react-native';
 import {Locale} from '../../interfaces/Locale';
 import {useAuthenticationStore} from '../../stores/authentication.store';
+import {useI18nStore} from '../../stores/i18n.store';
 import {primaryColor} from '../../theme';
 
 export function SettingScreen() {
   const [isDisconnecting, setIsDisconnecting] = useState(false);
   const authenticationStore = useAuthenticationStore();
+  const {changeLocale} = useI18nStore();
 
   const changeLanguage = (newLocale: Locale) => () => {
     console.log('newLocale: ', newLocale);
+    changeLocale(newLocale);
   };
 
   const disconnect = async () => {
