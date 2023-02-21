@@ -4,6 +4,7 @@ class API {
   async checkIfConnected() {
     try {
       const response = await fetch(domainUrl + '/api/auth/isConnected');
+      console.log('response: ', response);
       if (response.status !== 200) {
         return undefined;
       }
