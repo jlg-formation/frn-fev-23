@@ -13,12 +13,24 @@ export const LoginScreen = () => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [login, setLogin] = useState('jlg@jlg.com');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const {connect} = useAuthenticationStore();
 
   const onConnected = async () => {
-    setIsConnecting(true);
-    await connect(login, password);
-    setIsConnecting(false);
+    try {
+      setErrorMsg('');
+      setIsConnecting(true);
+      await connect(login, password);
+    } catch (err) {
+      console.log('err: ', err);
+      if (err instanceof Error) {
+        setErrorMsg(err.message);
+        return;
+      }
+      setErrorMsg('Erreur inconnue');
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
   return (
@@ -43,6 +55,9 @@ export const LoginScreen = () => {
             defaultValue={password}
             onChangeText={setPassword}
           />
+        </View>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{errorMsg}</Text>
         </View>
         <View style={styles.buttonContainer}>
           {isConnecting ? (
@@ -85,6 +100,17 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   buttonContainer: {
-    marginTop: 40,
+    marginTop: 10,
+  },
+  errorContainer: {
+    height: 30,
+    justifyContent: 'center',
+  },
+  errorText: {
+    width: '100%',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
   },
 });
