@@ -10,6 +10,8 @@ import {useArticleStore} from '../stores/article.store';
 import {useI18nStore} from '../stores/i18n.store';
 import {IconButton} from './IconButton';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {domainUrl} from '../app.json';
+import {generateId, getExtension} from '../misc';
 
 export const ArticleAdd = () => {
   const {t} = useI18nStore();
@@ -22,8 +24,42 @@ export const ArticleAdd = () => {
       console.log('add photos');
       const result = await launchImageLibrary({
         mediaType: 'photo',
+        selectionLimit: 5,
       });
       console.log('result: ', result);
+      if (result.assets === undefined) {
+        return;
+      }
+      for (const asset of result.assets) {
+        console.log('asset: ', asset);
+        console.log('asset.fileName: ', asset.fileName);
+        if (asset.fileName === undefined) {
+          return;
+        }
+
+        const extension = getExtension(asset.fileName);
+        console.log('extension: ', extension);
+        const imageName = generateId() + '.' + extension;
+        console.log('imageName: ', imageName);
+
+        const data = new FormData();
+        data.append('file', {
+          uri: asset.uri,
+          name: imageName,
+          type: asset.type,
+        });
+        const response = await fetch(domainUrl + '/api/upload', {
+          method: 'POST',
+          body: data,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        if (response.status >= 400) {
+          throw new Error('Technical Error');
+        }
+        console.log('image sent', response.status);
+      }
     } catch (err) {
       console.log('err: ', err);
     }
