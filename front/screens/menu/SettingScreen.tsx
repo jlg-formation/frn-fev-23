@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Vibration,
   ActivityIndicator,
   Pressable,
   StyleSheet,
@@ -18,6 +19,7 @@ export function SettingScreen() {
 
   const changeLanguage = (newLocale: Locale) => () => {
     console.log('newLocale: ', newLocale);
+    Vibration.vibrate(5);
     changeLocale(newLocale);
   };
 
