@@ -1,20 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
+import {useI18nStore} from '../stores/i18n.store';
 import {IconButton} from './IconButton';
 
 export const ArticleAdd = () => {
+  const {t} = useI18nStore();
+  const [text, setText] = useState('');
   const addPhotos = () => {
     console.log('add photos');
   };
   const reset = () => {
     console.log('reset');
+    setText('');
   };
   const addArticle = () => {
     console.log('add article');
   };
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textarea} multiline={true} numberOfLines={5} />
+      <TextInput
+        style={styles.textarea}
+        multiline={true}
+        numberOfLines={5}
+        placeholder={t.whatsnew}
+        defaultValue={text}
+        onChangeText={setText}
+      />
       <View style={styles.buttonContainer}>
         <View style={styles.leftButtonContainer}>
           <IconButton type="secondary" name="camera" onPress={addPhotos} />
@@ -46,5 +57,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   rightButtonContainer: {},
-  textarea: {},
+  textarea: {
+    textAlignVertical: 'top',
+    fontSize: 20,
+  },
 });

@@ -6,11 +6,13 @@ export const ArticleItem = ({article}: {article: Article}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>article: {article.text}</Text>
-      <View style={styles.images}>
-        {article.imageUrls.map((url, index) => (
-          <Image style={styles.image} source={{uri: url}} key={index} />
-        ))}
-      </View>
+      {article.imageUrls.length > 0 && (
+        <View style={styles.images}>
+          {article.imageUrls.map((url, index) => (
+            <Image style={styles.image} source={{uri: url}} key={index} />
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -36,5 +38,6 @@ const styles = StyleSheet.create({
     height: 150,
     width: '100%',
     objectFit: 'cover',
+    borderRadius: 5,
   },
 });
