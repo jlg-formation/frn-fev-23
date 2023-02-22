@@ -11,7 +11,7 @@ export const ArticleList = () => {
 
   return (
     <View style={styles.container}>
-      {articles.map(article => (
+      {articles.reverse().map(article => (
         <ArticleItem article={article} key={article.id} />
       ))}
     </View>
