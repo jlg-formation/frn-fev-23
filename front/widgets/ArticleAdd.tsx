@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import {useArticleStore} from '../stores/article.store';
 import {useI18nStore} from '../stores/i18n.store';
 import {IconButton} from './IconButton';
@@ -8,6 +14,7 @@ export const ArticleAdd = () => {
   const {t} = useI18nStore();
   const {addArticle} = useArticleStore();
   const [text, setText] = useState('');
+  const [isSending, setIsSending] = useState(false);
   const addPhotos = () => {
     console.log('add photos');
   };
@@ -18,10 +25,14 @@ export const ArticleAdd = () => {
   const sendArticle = async () => {
     try {
       console.log('add article');
+      setIsSending(true);
       await addArticle({text: text, imageUrls: []});
+      reset();
     } catch (err) {
       console.log('err: ', err);
       Alert.alert(t.technicalError);
+    } finally {
+      setIsSending(false);
     }
   };
   return (
@@ -40,7 +51,16 @@ export const ArticleAdd = () => {
           <IconButton type="secondary" name="trash" onPress={reset} />
         </View>
         <View style={styles.rightButtonContainer}>
-          <IconButton type="primary" name="send" onPress={sendArticle} />
+          {isSending ? (
+            <ActivityIndicator />
+          ) : (
+            <IconButton
+              type="primary"
+              name="send"
+              onPress={sendArticle}
+              disabled={text.length === 0}
+            />
+          )}
         </View>
       </View>
     </View>

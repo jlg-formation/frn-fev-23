@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {primaryColor} from '../theme';
@@ -11,21 +11,26 @@ export const IconButton = ({
   type,
   name,
   onPress,
+  disabled,
 }: {
   type: ButtonType;
   name: string;
   onPress?: () => void;
+  disabled?: boolean;
 }) => {
   const buttonPrimaryColor = 'white';
   const secondaryColor = primaryColor;
 
   const color = type === 'primary' ? buttonPrimaryColor : secondaryColor;
+
+  const opacity = useMemo(() => (disabled ? 0.4 : 1), [disabled]);
   return (
-    <View style={[styles.container, styles[type]]}>
+    <View style={[styles.container, styles[type], {opacity: opacity}]}>
       <Pressable
-        style={styles.pressable}
+        style={[styles.pressable]}
         android_ripple={{color: 'gray'}}
-        onPress={onPress}>
+        onPress={onPress}
+        disabled={disabled}>
         <Ionicons
           style={styles.icon}
           name={name + '-outline'}

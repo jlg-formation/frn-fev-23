@@ -3,8 +3,22 @@ import {domainUrl} from './app.json';
 import {Article, NewArticle} from './interfaces/Article';
 class API {
   async addArticle(newArticle: NewArticle) {
-    console.log('newArticle: ', newArticle);
-    throw new Error('Method not implemented.');
+    try {
+      const response = await fetch(domainUrl + '/api/articles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newArticle),
+      });
+      console.log('response: ', response);
+      if (response.status !== 201) {
+        throw new Error('Technical Error');
+      }
+    } catch (err) {
+      console.log('err: ', err);
+      throw err;
+    }
   }
 
   async checkIfConnected() {
@@ -65,7 +79,17 @@ class API {
   }
 
   async getArticles(): Promise<Article[]> {
-    throw new Error('Method not implemented.');
+    try {
+      const response = await fetch(domainUrl + '/api/articles');
+      if (response.status !== 200) {
+        throw new Error('Technical Error');
+      }
+      const articles: Article[] = await response.json();
+      return articles;
+    } catch (err) {
+      console.log('err: ', err);
+      throw new Error('Technical Error');
+    }
   }
 }
 
