@@ -7,8 +7,10 @@ export function HomeScreen() {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../assets/jardin.jpg')} />
-      <ArticleAdd />
-      <ArticleList />
+      <View style={styles.articleContainer}>
+        <ArticleAdd />
+        <ArticleList />
+      </View>
     </View>
   );
 }
@@ -18,6 +20,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  articleContainer: {
+    width: '100%',
+    padding: 10,
   },
   image: {
     height: 200,
