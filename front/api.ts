@@ -1,6 +1,12 @@
 import {User} from './interfaces/User';
 import {domainUrl} from './app.json';
+import {Article, NewArticle} from './interfaces/Article';
 class API {
+  async addArticle(newArticle: NewArticle) {
+    console.log('newArticle: ', newArticle);
+    throw new Error('Method not implemented.');
+  }
+
   async checkIfConnected() {
     try {
       const response = await fetch(domainUrl + '/api/auth/isConnected');
@@ -56,6 +62,10 @@ class API {
       console.log('err: ', err);
       throw new Error('Technical Error');
     }
+  }
+
+  async getArticles(): Promise<Article[]> {
+    throw new Error('Method not implemented.');
   }
 }
 

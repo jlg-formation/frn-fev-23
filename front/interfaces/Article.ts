@@ -3,3 +3,5 @@ export interface Article {
   text: string;
   imageUrls: string[];
 }
+
+export type NewArticle = Omit<Article, 'id'>;

@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
+import {useArticleStore} from '../stores/article.store';
 import {useI18nStore} from '../stores/i18n.store';
 import {IconButton} from './IconButton';
 
 export const ArticleAdd = () => {
   const {t} = useI18nStore();
+  const {addArticle} = useArticleStore();
   const [text, setText] = useState('');
   const addPhotos = () => {
     console.log('add photos');
@@ -13,8 +15,14 @@ export const ArticleAdd = () => {
     console.log('reset');
     setText('');
   };
-  const addArticle = () => {
-    console.log('add article');
+  const sendArticle = async () => {
+    try {
+      console.log('add article');
+      await addArticle({text: text, imageUrls: []});
+    } catch (err) {
+      console.log('err: ', err);
+      Alert.alert(t.technicalError);
+    }
   };
   return (
     <View style={styles.container}>
@@ -32,7 +40,7 @@ export const ArticleAdd = () => {
           <IconButton type="secondary" name="trash" onPress={reset} />
         </View>
         <View style={styles.rightButtonContainer}>
-          <IconButton type="primary" name="send" onPress={addArticle} />
+          <IconButton type="primary" name="send" onPress={sendArticle} />
         </View>
       </View>
     </View>
