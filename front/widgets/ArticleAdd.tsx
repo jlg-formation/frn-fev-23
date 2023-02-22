@@ -9,19 +9,31 @@ import {
 import {useArticleStore} from '../stores/article.store';
 import {useI18nStore} from '../stores/i18n.store';
 import {IconButton} from './IconButton';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 export const ArticleAdd = () => {
   const {t} = useI18nStore();
   const {addArticle} = useArticleStore();
   const [text, setText] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const addPhotos = () => {
-    console.log('add photos');
+
+  const addPhotos = async () => {
+    try {
+      console.log('add photos');
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+      });
+      console.log('result: ', result);
+    } catch (err) {
+      console.log('err: ', err);
+    }
   };
+
   const reset = () => {
     console.log('reset');
     setText('');
   };
+
   const sendArticle = async () => {
     try {
       console.log('add article');
@@ -35,6 +47,7 @@ export const ArticleAdd = () => {
       setIsSending(false);
     }
   };
+
   return (
     <View style={styles.container}>
       <TextInput
