@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   StyleSheet,
   TextInput,
   View,
@@ -17,6 +18,7 @@ export const ArticleAdd = () => {
   const {t} = useI18nStore();
   const {addArticle} = useArticleStore();
   const [text, setText] = useState('');
+  const [imageUrls, setImageUrls] = useState([] as string[]);
   const [isSending, setIsSending] = useState(false);
 
   const addPhotos = async () => {
@@ -30,6 +32,7 @@ export const ArticleAdd = () => {
       if (result.assets === undefined) {
         return;
       }
+      const urls: string[] = [];
       for (const asset of result.assets) {
         console.log('asset: ', asset);
         console.log('asset.fileName: ', asset.fileName);
@@ -59,7 +62,11 @@ export const ArticleAdd = () => {
           throw new Error('Technical Error');
         }
         console.log('image sent', response.status);
+        const url = domainUrl + '/api/upload/' + imageName;
+        console.log('url: ', url);
+        urls.push(url);
       }
+      setImageUrls([...imageUrls, ...urls]);
     } catch (err) {
       console.log('err: ', err);
     }
@@ -68,13 +75,14 @@ export const ArticleAdd = () => {
   const reset = () => {
     console.log('reset');
     setText('');
+    setImageUrls([]);
   };
 
   const sendArticle = async () => {
     try {
       console.log('add article');
       setIsSending(true);
-      await addArticle({text: text, imageUrls: []});
+      await addArticle({text: text, imageUrls: imageUrls});
       reset();
     } catch (err) {
       console.log('err: ', err);
@@ -94,6 +102,11 @@ export const ArticleAdd = () => {
         defaultValue={text}
         onChangeText={setText}
       />
+      <View style={styles.images}>
+        {imageUrls.map((url, index) => (
+          <Image style={styles.image} source={{uri: url}} key={index} />
+        ))}
+      </View>
       <View style={styles.buttonContainer}>
         <View style={styles.leftButtonContainer}>
           <IconButton type="secondary" name="camera" onPress={addPhotos} />
@@ -107,7 +120,7 @@ export const ArticleAdd = () => {
               type="primary"
               name="send"
               onPress={sendArticle}
-              disabled={text.length === 0}
+              disabled={text.length === 0 && imageUrls.length === 0}
             />
           )}
         </View>
@@ -137,5 +150,13 @@ const styles = StyleSheet.create({
   textarea: {
     textAlignVertical: 'top',
     fontSize: 20,
+  },
+  images: {
+    gap: 10,
+  },
+  image: {
+    width: '100%',
+    height: 150,
+    objectFit: 'contain',
   },
 });
