@@ -14,7 +14,7 @@ export const IconButton = ({
 }: {
   type: ButtonType;
   name: string;
-  onPress: () => void;
+  onPress?: () => void;
 }) => {
   const buttonPrimaryColor = 'white';
   const secondaryColor = primaryColor;
