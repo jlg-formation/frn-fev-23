@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useArticleStore} from '../stores/article.store';
 import {ArticleItem} from './ArticleItem';
 
 export const ArticleList = () => {
-  const {articles} = useArticleStore();
+  const {articles, refresh} = useArticleStore();
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
   return (
     <View style={styles.container}>
       {articles.map(article => (
